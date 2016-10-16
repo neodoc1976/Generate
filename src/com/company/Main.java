@@ -9,20 +9,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        magicalDoorsOpened();
+        magicalDoorsOpened();
         System.out.println("Введіть ціле число:");
         Scanner sc = new Scanner(System.in);
         String full = sc.nextLine();
         char[] arr = full.toCharArray();
         List<Byte> list = new ArrayList<>();
         List<Character> char_list = new ArrayList<>();
+
+
         for (char anArr : arr) {
 
             if (!Character.isDigit(anArr)) {
                 char_list.add(anArr);
 
             } else {
-                list.add((byte) charToInt(anArr));
+                list.add((byte) charToInt(anArr, true));
 
             }
         }
@@ -34,47 +36,55 @@ public class Main {
 
             System.out.println("Total number of characters: " + char_list.size());
             System.out.println("Characters list: " + char_list);
-            System.out.println("List of numerical codes character: " + listaOfCharToInt(char_list,"notreduced"));
-            System.out.println("Reduced to numerical format of the symbols"+ listaOfCharToInt(char_list,"reduced"));
+            System.out.println("List of numerical codes character: " + listaOfCharToInt(char_list, true));
+            System.out.println("Reduced to numerical format of the symbols" + listaOfCharToInt(char_list,true));
 
         } else {
-            System.out.println("Letters not found");
+            System.out.println("Characters not found");
         }
 
         System.out.println(finalSummator(bytes));
-//        System.out.println("Number of digits: ");
-
 
 
     }
 
     public static Byte[] arrToByte(int sum) {
+
         Byte[] bytes = new Byte[(sum + "").length()];
-        for (int i = bytes.length - 1; i > 0; i--) {
-            int a = sum % 10;
-            bytes[i] = (byte) a;
-            sum = a / 10;
+
+        for (int i = bytes.length - 1; i >= 0; i--) {
+
+            if (sum < 10) {
+                bytes[i] = (byte) sum;
+
+            } else {
+                int a = sum % 10;
+                bytes[i] = (byte) a;
+                sum = sum / 10;
+            }
         }
+
         return bytes;
 
     }
 
-
-    public static int charToInt(char chararcter) {
+    public static int charToInt(char chararcter, boolean b) {
         int a = (int) chararcter - 48;
 
-        System.out.println("charToInt:" + a);
+        if (b) {
+            System.out.println("charToInt:" + a);
+        }
 
         return a;
     }
 
-    public static List listaOfCharToInt (List<Character> characters , String reduced){
-        List<Integer> convert_list=new ArrayList<>();
+    public static List listaOfCharToInt(List<Character> characters, boolean b) {
+        List<Integer> convert_list = new ArrayList<>();
 
         for (Character character : characters) {
 
-            if (reduced.equals("reduced")) {
-                convert_list.add(charToInt(character));
+            if (b) {
+                convert_list.add(charToInt(character, b));
 
             } else {
                 convert_list.add((int) character);
@@ -110,16 +120,18 @@ public class Main {
 
     public static void magicalDoorsOpened() {
 
-        System.out.println("Please,enter the password: ");
+        System.out.println("Please,enter the  password: ");
         Scanner sc = new Scanner(System.in);
         int password = sc.nextInt();
 
-        switch (password){
-            case 123:
-                break;
-        }
+        if (password == 123 ) {
 
+            System.out.println("Welcome!");
+            return;
+        }
+        System.out.println("Illegal password!");
         magicalDoorsOpened();
+
     }
 
 }
