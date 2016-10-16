@@ -9,7 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        magicalDoorsOpened();
+        new MagicDoor().magicalDoorsIsOpened();
+
         System.out.println("Введіть ціле число:");
         Scanner sc = new Scanner(System.in);
         String full = sc.nextLine();
@@ -24,7 +25,7 @@ public class Main {
                 char_list.add(anArr);
 
             } else {
-                list.add((byte) charToInt(anArr, true));
+                list.add((byte) charToInt(anArr));
 
             }
         }
@@ -36,8 +37,7 @@ public class Main {
 
             System.out.println("Total number of characters: " + char_list.size());
             System.out.println("Characters list: " + char_list);
-            System.out.println("List of numerical codes character: " + listaOfCharToInt(char_list, true));
-            System.out.println("Reduced to numerical format of the symbols" + listaOfCharToInt(char_list,true));
+            System.out.println("Reduced to numerical format of the symbols" + listaOfCharToInt(char_list));
 
         } else {
             System.out.println("Characters not found");
@@ -68,28 +68,22 @@ public class Main {
 
     }
 
-    public static int charToInt(char chararcter, boolean b) {
+    public static int charToInt(char chararcter) {
         int a = (int) chararcter - 48;
 
-        if (b) {
             System.out.println("charToInt:" + a);
-        }
+
 
         return a;
     }
 
-    public static List listaOfCharToInt(List<Character> characters, boolean b) {
+    public static List listaOfCharToInt(List<Character> characters) {
         List<Integer> convert_list = new ArrayList<>();
 
-        for (Character character : characters) {
+       for (int i=0; i < characters.size(); i++){
+           convert_list.add(charToInt(characters.get(i)));
+       }
 
-            if (b) {
-                convert_list.add(charToInt(character, b));
-
-            } else {
-                convert_list.add((int) character);
-            }
-        }
         return convert_list;
     }
 
@@ -116,22 +110,6 @@ public class Main {
             return finalSummator(arr1);
 
         }
-    }
-
-    public static void magicalDoorsOpened() {
-
-        System.out.println("Please,enter the  password: ");
-        Scanner sc = new Scanner(System.in);
-        int password = sc.nextInt();
-
-        if (password == 123 ) {
-
-            System.out.println("Welcome!");
-            return;
-        }
-        System.out.println("Illegal password!");
-        magicalDoorsOpened();
-
     }
 
 }
